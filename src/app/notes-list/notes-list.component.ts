@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Note } from '../model/node.model';
+import { NotesManager } from '../services/notes-manager.service';
 
 @Component({
   selector: 'app-notes-list',
@@ -8,34 +9,20 @@ import { Note } from '../model/node.model';
 })
 export class NotesListComponent implements OnInit {
 
-  notes: Note[] = [
-    new Note('Primo titolo nota' , 'Contenuto notanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanotanota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto notaContenuto notaContenuto notaContenuto notaContenuto notaContenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota'),
-    new Note('Primo titolo nota' , 'Contenuto nota', 'Data Nota')
+  notes: Note[] = [];
 
+  @Output() onEditing = new EventEmitter<boolean>();
 
-  ];
-
-  constructor() { }
+  constructor(private noteManager: NotesManager) {
+    this.notes = this.noteManager.noteList;
+    
+   }
 
   ngOnInit(): void {
   }
 
+  editingNote(value: boolean){
+    
+    this.onEditing.emit(value);
+  }
 }
