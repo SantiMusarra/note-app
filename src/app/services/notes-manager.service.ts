@@ -6,10 +6,9 @@ export class NotesManager{
 
     noteList: Note[] = []; //main notes list
     
-    
-    isInEditMode: boolean = false; 
+    noteToEdit: Note = new Note( '' , '' , '' , 0); //refence for the note that has to be edited
 
-    editMode = new EventEmitter<Note>(); //Event for passing a note to the subscriber
+    isInEditMode: boolean = false; 
 
     addNote(note: Note){
 
@@ -26,6 +25,7 @@ export class NotesManager{
         this.noteList[note.noteId].noteContent = note.noteContent;
         this.noteList[note.noteId].noteTitle = note.noteTitle;
         this.isInEditMode = false;
+        
     }
 
 }

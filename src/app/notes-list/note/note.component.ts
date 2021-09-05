@@ -22,7 +22,7 @@ export class NoteComponent implements OnInit {
     
     this.EditMode.emit(true);
     this.noteManager.isInEditMode = true;
-    this.noteManager.editMode.emit(this.note);
+    this.noteManager.noteToEdit = this.note;
     
   }
 

@@ -9,7 +9,7 @@ import { NotesManager } from '../services/notes-manager.service';
 })
 export class NoteDetailComponent implements OnInit {
   
-  noteToAdd: Note = new Note( '' , '' , '' , 0); //Initializing a note for the ngModel to reference it
+  noteToAdd: Note = this.noteManager.noteToEdit; //Initializing a note for the ngModel to reference it
 
   isEditingMode!: boolean; //local reference of the main editingMode in the notes-manager service
 
@@ -19,7 +19,6 @@ export class NoteDetailComponent implements OnInit {
   
   
   constructor(private noteManager: NotesManager  ) { 
-    this.noteManager.editMode.subscribe((value: Note) => this.noteToAdd = value );
     this.isEditingMode = this.noteManager.isInEditMode;
     
   }
@@ -29,36 +28,38 @@ export class NoteDetailComponent implements OnInit {
     
   }
 
-  onEditNote(note: Note){
-    this.noteToAdd = note; 
-    console.log(this.noteToAdd);
-
-  }
-
   onButtonClicked(btnFunction : string){
 
     switch (btnFunction) {
       case 'back':
         this.backToList.emit(true);     //Emit the event for going back to the list UI
         if(this.isEditingMode) this.noteManager.isInEditMode = false;
+        this.clearField();
         break;
 
       case 'delete':
         this.noteManager.deleteNote(this.noteToAdd);
         this.backToList.emit(true);     //Emit the event for going back to the list UI
         this.noteManager.isInEditMode = false;
+        this.clearField();
         break;
 
       case 'done':
           if(this.isEditingMode){
             this.noteManager.editNote(this.noteToAdd);
             this.backToList.emit(true); //Emit the event for going back to the list UI
+            this.clearField();
           } 
           else{
             this.onAddNote(); 
           } 
         break;
     }
+  }
+
+  clearField(){
+    this.noteManager.noteToEdit = new Note( '' , '' , '' , 0);
+    this.noteToAdd = this.noteManager.noteToEdit;
   }
 
   onAddNote(){
@@ -70,6 +71,7 @@ export class NoteDetailComponent implements OnInit {
       this.noteManager.addNote(this.noteToAdd); //Adding the new note to the main list in the notes-manager service
       this.index++;
       this.backToList.emit(true); //Emit the event for going back to the list UI
+      this.clearField();
     } 
   }
 }
