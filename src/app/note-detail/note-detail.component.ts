@@ -13,7 +13,6 @@ export class NoteDetailComponent implements OnInit {
 
   isEditingMode!: boolean; //local reference of the main editingMode in the notes-manager service
 
-  index: number = 0; // Unique and progressive id given to a newly created note
 
   @Output() backToList = new EventEmitter<boolean>();  //Event for managing the transition betwen the note creation/editing transition
   
@@ -66,10 +65,10 @@ export class NoteDetailComponent implements OnInit {
     
     if(this.noteToAdd.noteTitle === '') alert('You must add a title to the note');
     else{
-      this.noteToAdd.noteId = this.index; //Setting an index to the new note
+      
       this.noteToAdd.noteDate = new Date().toString(); //Setting a Date to the new note
       this.noteManager.addNote(this.noteToAdd); //Adding the new note to the main list in the notes-manager service
-      this.index++;
+      
       this.backToList.emit(true); //Emit the event for going back to the list UI
       this.clearField();
     } 

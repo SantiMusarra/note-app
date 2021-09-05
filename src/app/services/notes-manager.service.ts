@@ -8,16 +8,27 @@ export class NotesManager{
     
     noteToEdit: Note = new Note( '' , '' , '' , 0); //refence for the note that has to be edited
 
+    index: number = 0; // Unique and progressive id given to a newly created note
+
     isInEditMode: boolean = false; 
 
     addNote(note: Note){
-
+        note.noteId = this.index;
+        this.index++; //Setting an index to the new note
         this.noteList.push(note);
     }
 
     deleteNote(note: Note){
 
-        this.noteList.splice(note.noteId,1);
+        let indexToDelete: number = 0 ;
+        for (let i = 0; i < this.noteList.length; i++) {
+            
+            if(note.noteId === this.noteList[i].noteId) indexToDelete = i;
+            
+        }
+
+        this.noteList.splice(indexToDelete,1);
+
     }
 
     editNote(note: Note){

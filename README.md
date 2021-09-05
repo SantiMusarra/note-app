@@ -1,6 +1,9 @@
 # NoteApp
 
 This WebApp is inspired by the Xiaomi note app and I used Figma for design my own version.
+The app is a note manager where you can create and modify your notes. Nothing is stored online and will erase all of your date once you close the browser/app.
+
+![App Screenshot](D:\Progetti\note-app\NoteApp.jpeg)
 
 ## Dependencies 
 This app requires Bootstrap 4.x
@@ -20,6 +23,6 @@ The app is divided among four component apart for the app component which is the
     - Works as a template for the creation of a note
     - Show all the information of an already exiting note if selected and let edit the note
 
-## Further help
+## Try it!
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+ [Click this link to try the app!](https://smnotesapp.web.app/) page.
