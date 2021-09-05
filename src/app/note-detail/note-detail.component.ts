@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Note } from '../model/node.model';
 import { NotesManager } from '../services/notes-manager.service';
 
@@ -8,22 +8,30 @@ import { NotesManager } from '../services/notes-manager.service';
   styleUrls: ['./note-detail.component.css']
 })
 export class NoteDetailComponent implements OnInit {
+  
+  noteToAdd: Note = new Note( '' , '' , '' , 0); //Initializing a note for the ngModel to reference it
 
-  noteToAdd: Note = new Note('', '' , '', 0);
+  isEditingMode!: boolean; //local reference of the main editingMode in the notes-manager service
 
-  isEditingNote!: boolean; //
+  index: number = 0; // Unique and progressive id given to a newly created note
 
-  index: number = 0; //La creazione delle note avviane con un id unico progressivo
-
-  @Output() backToList = new EventEmitter<boolean>();
-
-  constructor(private noteManager: NotesManager) { 
-    this.noteManager.editMode.subscribe((value: Note) => console.log(value));
-    this.isEditingNote = this.noteManager.isInEditMode;
+  @Output() backToList = new EventEmitter<boolean>();  //Event for managing the transition betwen the note creation/editing transition
+  
+  
+  constructor(private noteManager: NotesManager  ) { 
+    this.noteManager.editMode.subscribe((value: Note) => this.noteToAdd = value );
+    this.isEditingMode = this.noteManager.isInEditMode;
     
   }
 
   ngOnInit(): void {
+
+    
+  }
+
+  onEditNote(note: Note){
+    this.noteToAdd = note; 
+    console.log(this.noteToAdd);
 
   }
 
@@ -31,20 +39,24 @@ export class NoteDetailComponent implements OnInit {
 
     switch (btnFunction) {
       case 'back':
-        this.backToList.emit(true);
+        this.backToList.emit(true);     //Emit the event for going back to the list UI
+        if(this.isEditingMode) this.noteManager.isInEditMode = false;
         break;
+
       case 'delete':
         this.noteManager.deleteNote(this.noteToAdd);
-        this.backToList.emit(true);
+        this.backToList.emit(true);     //Emit the event for going back to the list UI
+        this.noteManager.isInEditMode = false;
         break;
+
       case 'done':
-          if(this.isEditingNote) this.noteManager.editNote(this.noteToAdd);
+          if(this.isEditingMode){
+            this.noteManager.editNote(this.noteToAdd);
+            this.backToList.emit(true); //Emit the event for going back to the list UI
+          } 
           else{
             this.onAddNote(); 
           } 
-        break;
-
-      default:
         break;
     }
   }
@@ -53,11 +65,11 @@ export class NoteDetailComponent implements OnInit {
     
     if(this.noteToAdd.noteTitle === '') alert('You must add a title to the note');
     else{
-      this.noteToAdd.noteId = this.index;
-      this.noteToAdd.noteDate = new Date().toString();
-      this.noteManager.addNote(this.noteToAdd);
+      this.noteToAdd.noteId = this.index; //Setting an index to the new note
+      this.noteToAdd.noteDate = new Date().toString(); //Setting a Date to the new note
+      this.noteManager.addNote(this.noteToAdd); //Adding the new note to the main list in the notes-manager service
       this.index++;
-      this.backToList.emit(true); //Ritorna alla lista delle note
+      this.backToList.emit(true); //Emit the event for going back to the list UI
     } 
   }
 }

@@ -4,18 +4,13 @@ import { Note } from "../model/node.model";
 @Injectable({providedIn: 'root'})
 export class NotesManager{
 
-    noteList: Note[] = [];
+    noteList: Note[] = []; //main notes list
     
     
-    isInEditMode: boolean = false;
+    isInEditMode: boolean = false; 
 
-    editMode = new EventEmitter<Note>();
+    editMode = new EventEmitter<Note>(); //Event for passing a note to the subscriber
 
-    getEditMode() : boolean{
-
-        return this.isInEditMode;
-
-    }
     addNote(note: Note){
 
         this.noteList.push(note);
@@ -30,6 +25,7 @@ export class NotesManager{
 
         this.noteList[note.noteId].noteContent = note.noteContent;
         this.noteList[note.noteId].noteTitle = note.noteTitle;
+        this.isInEditMode = false;
     }
 
 }

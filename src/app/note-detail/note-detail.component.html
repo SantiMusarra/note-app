@@ -2,20 +2,22 @@
 
     <div class="row justify-content-center m-3 ">
         <div class="col">
-            <input type="text" class=" form-control" placeholder="Title" [(ngModel)] = "noteToAdd.noteTitle">
+            <input type="text" class=" form-control" placeholder="Title" [(ngModel)]= "noteToAdd.noteTitle" >
+           
         </div>
     </div>
 
     <div class="row justify-content-center m-3 ">
         <div class="col">
             <textarea class="form-control" rows="10" placeholder="Content" [(ngModel)] = "noteToAdd.noteContent"></textarea>
+            
         </div>
     </div>
     <div class="row justify-content-center m-3">
         <div class="col">    
             <div class="btn-group" role="group">
                 <button class="btn btn-secondary" (click) = "onButtonClicked('back')">Back</button>
-                <button *ngIf="isEditingNote" class="btn btn-danger" (click) = "onButtonClicked('delete')">Delete</button>
+                <button *ngIf="isEditingMode" class="btn btn-danger" (click) = "onButtonClicked('delete')">Delete</button>
                 <button class="btn btn-success" (click) = "onButtonClicked('done')">Done</button>
             </div>
             

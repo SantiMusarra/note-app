@@ -11,16 +11,12 @@ import { NotesManager } from './services/notes-manager.service';
 export class AppComponent implements OnInit{
   title = 'note-app';
 
-  onNoteDetail!: boolean; //Se false mostra la lista delle note se true mostra l'interfaccia per i dettagli di una nota
+  onNoteDetail!: boolean; //Boolean value for showing the note list UI or the UI for the creation/edting of the note 
   
-
   constructor(private noteManager: NotesManager){
      
   }
   ngOnInit(){}
-
-  ngDoCheck(){
-  }
   
   onAddNote(viewList: boolean){
     this.onNoteDetail = viewList;

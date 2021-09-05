@@ -1,26 +1,24 @@
 # NoteApp
 
-This WebApp is inspired by the Xiaomi note app.
+This WebApp is inspired by the Xiaomi note app and I used Figma for design my own version.
+
+## Dependencies 
+This app requires Bootstrap 4.x
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Design Implementation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The app is divided among four component apart for the app component which is the main component of the app and where the other components are nested:
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- The Topbar component 
+- The Note list component which job is simply to list and group all the notes that have been created
+- The Note component which display all the information of a note that is listed in the Notes Container component UI
+- The Note detail component which have two functions:
+    - Works as a template for the creation of a note
+    - Show all the information of an already exiting note if selected and let edit the note
 
 ## Further help
 
