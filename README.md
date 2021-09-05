@@ -3,7 +3,7 @@
 This WebApp is inspired by the Xiaomi note app and I used Figma for design my own version.
 The app is a note manager where you can create and modify your notes. Nothing is stored online and will erase all of your date once you close the browser/app.
 
-![App Screenshot](note-app\NoteApp.jpeg)
+![App Screenshot](NoteApp.jpeg)
 
 ## Dependencies 
 This app requires Bootstrap 4.x
