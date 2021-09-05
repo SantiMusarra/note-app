@@ -25,4 +25,4 @@ The app is divided among four component apart for the app component which is the
 
 ## Try it!
 
- [Click this link to try the app!](https://smnotesapp.web.app/) page.
+ [Click this link to try the app!](https://smnotesapp.web.app/)
